@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/helpers');
-const {Reactions} = require('../models/Reaction')
+const Reactions = require('../models/Reaction')
 // Schema to create User model
 const thoughtsSchema = new Schema(
     {
@@ -31,7 +31,7 @@ const thoughtsSchema = new Schema(
 );
 
 // Create a virtual property `reactionCount` that gets length of the thoughts reactions array
-thoughtSchema
+thoughtsSchema
     .virtual('reactionCount')
     // Getter
     .get(function () {
@@ -39,6 +39,6 @@ thoughtSchema
     })
    
 // Initialize our User model
-const Thought = model('thought', thoughtSchema);
+const Thought = model('thought', thoughtsSchema);
 
 module.exports = Thought;
