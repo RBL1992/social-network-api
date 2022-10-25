@@ -44,12 +44,6 @@ userSchema
     .get(function () {
         return `${this.friends}`;
     })
-    // Setter to set the first and last name
-    // .set(function (v) {
-    //     const first = v.split(' ')[0];
-    //     const last = v.split(' ')[1];
-    //     this.set({ first, last });
-    // });
 
 // Initialize our User model
 const User = model('user', userSchema);
