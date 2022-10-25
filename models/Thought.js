@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
-const dateFormat = require('../utils/helpers');
-const Reactions = require('../models/Reaction')
+const formattedTimeStamp = require('../utils/helpers');
+const Reactions = require('../models/Reaction');
+
 // Schema to create User model
 const thoughtsSchema = new Schema(
     {
@@ -14,7 +15,7 @@ const thoughtsSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            // get: (time) => dateFormat(time,)
+            get: (dateAndTime) => {return formattedTimeStamp(dateAndTime)},
         },
         username: {
                 type: String,
@@ -25,6 +26,7 @@ const thoughtsSchema = new Schema(
     {
         toJSON: {
             virtuals: true,
+            getters: true,
         },
         id: false,
     }
