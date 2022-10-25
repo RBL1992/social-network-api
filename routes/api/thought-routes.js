@@ -9,7 +9,7 @@ const {
   removeReaction,
 } = require('../../controllers/thought-controller');
 
-// /api/users
+// /api/thoughts
 router.route('/').get(getThoughts).post(createThought);
 
 // /api/users/:thoughtId
