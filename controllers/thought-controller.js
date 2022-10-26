@@ -1,9 +1,9 @@
-const {User,Thought} = require('../models/Thought');
+const {User,Thought} = require('../models');
 
 
 module.exports = {
   getThoughts(req, res) {
-    Thought.find()
+    Thought.find({})
       .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(500).json(err));
   },
@@ -40,7 +40,7 @@ module.exports = {
         res.status(500).json(err);
       });
   },
-
+// find thought by Id and update text
   updateThought(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
@@ -54,7 +54,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-
+// finding a thought and deleting it
   deleteThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((thought) =>
@@ -68,12 +68,12 @@ module.exports = {
       )
       .then((user) => 
         !user
-        ? res.status(404).json({ message: 'User found Thought with ID not found!',})
+        ? res.status(404).json({ message: 'User found... Thought with ID not found!',})
         : res.json({message: 'Thought deleted.'})
         )
       .catch((err) => res.status(500).json(err));
   },
-
+// find a thought based on Id from params... then add reaction based on what is passed through req.body
   addReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
@@ -87,11 +87,11 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-
+// find a thought based on Id from params.... then remove reaction based on params
   removeReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reactions: { reactionsId: req.params.reactionsId } } },
+      { $pull: { reactions: { reactionsId: req.params.reactionId } } },
       { runValidators: true, new: true }
     )
       .then((thought) =>
